@@ -1,0 +1,2 @@
+Most of these are helper scripts to create the input dataset. We first ran pre_setup.sh to download and preprocess some necessary input files.
+We then run setup.sh to create the input HumChp and Background files for matrix making.

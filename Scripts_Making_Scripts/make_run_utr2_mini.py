@@ -1,0 +1,32 @@
+sim_num = [100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000]
+
+def write_header(out):
+    out.write("#!/bin/bash\n#SBATCH --time=168:00:00\n#SBATCH -p hbfraser\n#SBATCH --mem=16GB\n\n")
+
+for i in sim_num:
+    
+    out = open("run_3utr_paramset3_" + str(i - 100000) + "-" + str(i) + ".sh", 'w')
+    write_header(out)
+    out.write('#Filter WGS, SpecSup250\nspec_mat="PhyloP/SpeciesMatrix_PhyloP_FiltWGS_3UTR_PhyloP-100_SpecSup250_YCM_NCV_Per0"\nback_mat="PhyloP/BackgroundMatrix_FiltWGS_PhyloP_3UTR_PhyloP-100_SpecSup250_NCM_Per0"\n')
+    out.write("python simulate_new_humchp.py HumChp_AccelEvolInput.Final.txt 1 -100 250 0 1 0 0 3UTR Outputs/PhyloP_3UTR_FiltWGS_PhyloP-100_SpecSup250_YCM_NCV_Per0_PerGene PhyloP447 PhyloP447 $spec_mat $back_mat " + ",".join([str(i - 100000), str(i)]) + "\n")
+    out.close()
+
+    out = open("run_3utr_paramset4_" + str(i - 100000) + "-" + str(i) + ".sh", 'w')
+    write_header(out)
+    out.write('#Not filtering WGS, SpecSup250\nspec_mat="PhyloP/SpeciesMatrix_PhyloP_NoFiltWGS_3UTR_PhyloP-100_SpecSup250_YCM_NCV_Per0"\nback_mat="PhyloP/BackgroundMatrix_NoFiltWGS_PhyloP_3UTR_PhyloP-100_SpecSup250_NCM_Per0"\n')
+    out.write("python simulate_new_humchp.py HumChp_AccelEvolInput.Final.txt 0 -100 250 0 1 0 0 3UTR Outputs/PhyloP_3UTR_NoFiltWGS_PhyloP-100_SpecSup250_YCM_NCV_Per0_PerGene PhyloP447 PhyloP447 $spec_mat $back_mat " + ",".join([str(i - 100000), str(i)]) + "\n")
+    out.close()
+    
+
+    out = open("run_5utr_paramset3_" + str(i - 100000) + "-" + str(i) + ".sh", 'w')
+    write_header(out)
+    out.write('#Filter WGS, SpecSup250\nspec_mat="PhyloP/SpeciesMatrix_PhyloP_FiltWGS_5UTR_PhyloP-100_SpecSup250_YCM_NCV_Per0"\nback_mat="PhyloP/BackgroundMatrix_FiltWGS_PhyloP_5UTR_PhyloP-100_SpecSup250_NCM_Per0"\n')
+    out.write("python simulate_new_humchp.py HumChp_AccelEvolInput.Final.txt 1 -100 250 0 1 0 0 5UTR Outputs/PhyloP_5UTR_FiltWGS_PhyloP-100_SpecSup250_YCM_NCV_Per0_PerGene PhyloP447 PhyloP447 $spec_mat $back_mat " + ",".join([str(i - 100000), str(i)]) + "\n")
+    out.close()
+
+    out = open("run_5utr_paramset4_" + str(i - 100000) + "-" + str(i) + ".sh", 'w')
+    write_header(out)
+    out.write('#Not filtering WGS, SpecSup250\nspec_mat="PhyloP/SpeciesMatrix_PhyloP_NoFiltWGS_5UTR_PhyloP-100_SpecSup250_YCM_NCV_Per0"\nback_mat="PhyloP/BackgroundMatrix_NoFiltWGS_PhyloP_5UTR_PhyloP-100_SpecSup250_NCM_Per0"\n')
+    out.write("python simulate_new_humchp.py HumChp_AccelEvolInput.Final.txt 0 -100 250 0 1 0 0 5UTR Outputs/PhyloP_5UTR_NoFiltWGS_PhyloP-100_SpecSup250_YCM_NCV_Per0_PerGene PhyloP447 PhyloP447 $spec_mat $back_mat " + ",".join([str(i - 100000), str(i)]) + "\n")
+    out.close()
+    
